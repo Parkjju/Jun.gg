@@ -1,0 +1,22 @@
+{
+  "name": "Jun.gg",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Parkjju/Jun.gg.git",
+  "author": "Parkjju <rudwns3927@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/server.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.8",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/compat-data": "^7.17.7",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "express": "^4.17.3",
+    "morgan": "^1.10.0"
+  }
+}
