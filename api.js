@@ -3,7 +3,6 @@ const api = '/lol/summoner/v4/summoners/by-name/';
 const apiKey = JSON.parse(data).key;
 const inputBox = document.querySelector('#main-input');
 const inputUsernameBox = document.querySelector('#main-input__username');
-const keyList = [];
 
 const submitHandler = (e) => {
   e.preventDefault();
