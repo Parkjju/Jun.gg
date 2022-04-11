@@ -86,15 +86,54 @@ body {
 #league-solo,
 #league-free {
     height: 30%;
-    background-color: white;
+    background-color: rgb(242, 242, 242);
     margin: 1rem 0;
     border: 1px solid #c6cbcb;
     display: flex;
     align-items: center;
     padding-left: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 #league-solo__img,
-#league-free__img {
+#league-free__img,
+#league-information__rank {
     height: 80%;
+    margin-right: 1rem;
+}
+
+#league-information__rank {
+    height: 60%;
+}
+
+#league-information__rank {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.queue-type {
+    color: #869292;
+    font-size: 0.8rem;
+}
+
+.tier {
+    color: #5484e8;
+    font-weight: bold;
+}
+
+.point {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.winRatio {
+    color: #869292;
+    font-weight: lighter;
+}
+
+.win-ratio {
+    color: #869292;
+    font-size: 0.8rem;
 }
