@@ -5,16 +5,37 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="result.css" />
+        <script src="/secret.json"></script>
         <title>Document</title>
     </head>
     <body>
+        <div id="navbar">
+            <span id="navbar-logo">JUN.GG</span>
+        </div>
         <div id="header">
             <div id="profile">
-                <img id="profile-img" src="" alt="profile" />
-                <span id="profile-level"></span>
+                <div id="profile-left">
+                    <img id="profile-img" src="" alt="profile" />
+                    <span id="profile-level"></span>
+                </div>
+                <div id="profile-right">
+                    <span id="profile-name"> </span>
+                </div>
             </div>
         </div>
-        <div id="result"></div>
+
+        <div id="main">
+            <div id="game-information">
+                <div id="league-information">
+                    <div id="league-solo">
+                        <img src="" id="league-solo__img" alt="" />
+                    </div>
+                    <div id="league-free"></div>
+                </div>
+
+                <div id="match-information"></div>
+            </div>
+        </div>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="result.js"></script>
         <script src="resultApi.js"></script>
