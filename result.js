@@ -168,7 +168,7 @@ axios
         leagueSolo.src = `./ranked-emblems/Emblem_${soloTier}.png`;
         leagueFree.src = `./ranked-emblems/Emblem_${freeTier}.png`;
 
-        localStorage.removeItem(localStorage.key(0));
+        // localStorage.removeItem(localStorage.key(0));
     });
 
 // 닉네임 api
