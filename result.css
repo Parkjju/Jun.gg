@@ -30,7 +30,7 @@ body {
     border-bottom: 1px solid #c6cbcb;
 }
 #profile {
-    width: 50%;
+    width: 40%;
     height: 6rem;
     display: flex;
 }
@@ -75,11 +75,11 @@ body {
 }
 
 #game-information {
-    width: 50%;
+    width: 40%;
     height: 100%;
 }
 #league-information {
-    width: 40%;
+    width: 20rem;
     height: 50%;
 }
 
