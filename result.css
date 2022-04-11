@@ -85,7 +85,16 @@ body {
 
 #league-solo,
 #league-free {
-    height: 50%;
+    height: 30%;
     background-color: white;
-    margin-bottom: 1rem;
+    margin: 1rem 0;
+    border: 1px solid #c6cbcb;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+}
+
+#league-solo__img,
+#league-free__img {
+    height: 80%;
 }

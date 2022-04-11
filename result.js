@@ -6,6 +6,7 @@ const iconURL =
 const pngNumber = `${userInformation.profileIconId}.png`;
 const img = document.querySelector('#profile-img');
 const leagueSolo = document.querySelector('#league-solo__img');
+const leagueFree = document.querySelector('#league-free__img');
 
 // 랭크 api
 const soloRankApi = `https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/`;
@@ -15,9 +16,18 @@ axios
         const result = response.data;
 
         // 자유랭크 또는 솔로랭크
-        const tier = result[1].tier;
+        const soloTier =
+            result[0].queueType == 'RANKED_FLEX_SR'
+                ? result[1].tier
+                : result[0].tier;
+
+        const freeTier =
+            result[0].queueType == 'RANKED_FLEX_SR'
+                ? result[0].tier
+                : result[1].tier;
         // 솔로랭크 이미지
-        leagueSolo.src = `./ranked-emblems/Emblem_${tier}.png`;
+        leagueSolo.src = `./ranked-emblems/Emblem_${soloTier}.png`;
+        leagueFree.src = `./ranked-emblems/Emblem_${freeTier}.png`;
     });
 
 // 닉네임 api
