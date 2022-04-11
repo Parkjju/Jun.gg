@@ -1,3 +1,18 @@
 body {
-  background-color: #eaeaea;
+    background-color: #eaeaea;
+}
+#header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 10rem;
+}
+#profile {
+    width: 50%;
+    height: 5rem;
+}
+
+#profile-img {
+    height: 100%;
 }
