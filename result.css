@@ -30,7 +30,7 @@ body {
     border-bottom: 1px solid #c6cbcb;
 }
 #profile {
-    width: 50%;
+    width: 60rem;
     height: 6rem;
     display: flex;
 }
@@ -140,8 +140,86 @@ body {
 }
 
 #match-information {
-    background-color: white;
     box-sizing: border-box;
-    width: 30%;
+    width: 38rem;
     height: auto;
+}
+
+.match-information__win,
+.match-information__lose {
+    height: 8rem;
+    box-sizing: border-box;
+    width: 90%;
+    margin: 1rem 0;
+    display: flex;
+    padding: 1.2rem 1rem;
+}
+
+.match-information__win {
+    background-color: #a3cfec;
+}
+
+.match-information__lose {
+    background-color: #e2b6b3;
+}
+
+.info,
+.champion,
+.kda,
+.stats,
+.items,
+.participants,
+.action {
+    box-sizing: border-box;
+    height: 90%;
+}
+
+.info,
+.stats {
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.champion,
+.kda,
+.items {
+    width: 20%;
+}
+
+.participants {
+    width: 25%;
+}
+
+.action {
+    width: 5%;
+}
+
+.divider {
+    height: 1px;
+    width: 40%;
+    box-sizing: border-box;
+    border: 1px solid rgb(153, 185, 207);
+}
+
+#info-game {
+    font-weight: bold;
+    color: rgb(85, 85, 85);
+    font-size: 0.8rem;
+}
+
+#info-game,
+#info-played,
+#info-win,
+#info-time {
+    color: rgb(85, 85, 85);
+    font-size: 0.7rem;
+}
+
+#info-win {
+    color: #5484e8;
+    font-weight: bold;
+    font-size: 0.8rem;
 }

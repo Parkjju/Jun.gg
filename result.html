@@ -4,6 +4,10 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
         <link rel="stylesheet" href="result.css" />
         <script src="/secret.json"></script>
         <title>Document</title>
@@ -56,7 +60,26 @@
                 <div id="match-information"></div>
             </div>
 
-            <div id="match-information"></div>
+            <div id="match-information">
+                <div class="match-information__win">
+                    <div class="info">
+                        <span id="info-game">무작위 총력전</span>
+                        <span id="info-played">16시간 전</span>
+                        <div class="divider"></div>
+                        <span id="info-win">승리</span>
+                        <span id="info-time">29분 10초</span>
+                    </div>
+                    <div class="champion">
+                        <!-- <img src="./ranked-emblems/Emblem_Bronze.png" alt="" /> -->
+                    </div>
+                    <div class="kda"></div>
+                    <div class="stats"></div>
+                    <div class="items"></div>
+                    <div class="participants"></div>
+                    <div class="action"></div>
+                </div>
+                <div class="match-information__lose"></div>
+            </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="result.js"></script>
