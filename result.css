@@ -149,7 +149,7 @@ body {
 .match-information__lose {
     height: 8rem;
     box-sizing: border-box;
-    width: 90%;
+    width: 100%;
     margin: 1rem 0;
     display: flex;
     padding: 1.2rem 1rem;
@@ -222,4 +222,36 @@ body {
     color: #5484e8;
     font-weight: bold;
     font-size: 0.8rem;
+}
+
+#champion-info {
+    box-sizing: border-box;
+    width: 100%;
+    height: 80%;
+    display: flex;
+    margin-bottom: 0.5rem;
+}
+#champion-summoner {
+    box-sizing: border-box;
+    width: 100%;
+    height: 20%;
+    font-size: 0.8rem;
+    color: rgb(85, 85, 85);
+    text-align: center;
+}
+
+#champion-spell,
+#champion-rune,
+#champion-profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#champion-profile > img {
+    height: 4rem;
+}
+#champion-spell > img,
+#champion-rune > img {
+    height: 2rem;
 }
