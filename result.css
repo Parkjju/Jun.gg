@@ -141,7 +141,7 @@ body {
 
 #match-information {
     box-sizing: border-box;
-    width: 44rem;
+    width: 50rem;
     height: auto;
 }
 
@@ -185,10 +185,10 @@ body {
 
 .champion,
 .items {
-    width: 20%;
+    width: 15%;
 }
 .kda {
-    width: 25%;
+    width: 15%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -200,7 +200,7 @@ body {
 }
 
 .action {
-    width: 5%;
+    width: 1%;
 }
 
 .divider {
@@ -298,7 +298,6 @@ body {
     color: rgb(85, 85, 85);
     height: 100%;
     font-weight: 400;
-    margin-right: 1rem;
 }
 
 #stats-tierMean {
@@ -335,4 +334,33 @@ body {
 #items-ward {
     display: flex;
     align-items: center;
+    font-size: 0.9rem;
+}
+
+.participant-profile > img {
+    height: 1.2rem;
+    margin-right: 0.1rem;
+}
+.participant-username {
+    font-size: 0.6rem;
+}
+.participants {
+    display: flex;
+}
+
+.participant-profile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#ally,
+#opponent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 110%;
+}
+#ally {
+    margin-right: 0.5rem;
 }
