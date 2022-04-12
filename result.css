@@ -141,7 +141,7 @@ body {
 
 #match-information {
     box-sizing: border-box;
-    width: 38rem;
+    width: 44rem;
     height: auto;
 }
 
@@ -152,7 +152,7 @@ body {
     width: 100%;
     margin: 1rem 0;
     display: flex;
-    padding: 1.2rem 1rem;
+    padding: 0.9rem 1rem;
 }
 
 .match-information__win {
@@ -171,7 +171,7 @@ body {
 .participants,
 .action {
     box-sizing: border-box;
-    height: 90%;
+    height: 95%;
 }
 
 .info,
@@ -184,9 +184,15 @@ body {
 }
 
 .champion,
-.kda,
 .items {
     width: 20%;
+}
+.kda {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .participants {
@@ -224,6 +230,9 @@ body {
     font-size: 0.8rem;
 }
 
+.champion {
+    margin-right: 1rem;
+}
 #champion-info {
     box-sizing: border-box;
     width: 100%;
@@ -254,4 +263,76 @@ body {
 #champion-spell > img,
 #champion-rune > img {
     height: 2rem;
+}
+
+#kda-stat {
+    color: rgb(85, 94, 94);
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+#kda-death {
+    color: #c5443e;
+}
+.slash {
+    font-size: 0.9rem;
+    font-weight: lighter;
+}
+
+#kda-mean {
+    font-size: 0.8rem;
+    color: rgb(85, 85, 85);
+    font-weight: bold;
+}
+
+#mean-stat {
+    color: #353a3a;
+}
+
+.stats {
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: rgb(85, 85, 85);
+    height: 100%;
+    font-weight: 400;
+    margin-right: 1rem;
+}
+
+#stats-tierMean {
+    font-weight: 900;
+}
+
+#stats-killRatio {
+    color: #c5443e;
+}
+
+#items-main > img,
+#items-sub > img {
+    height: 2rem;
+}
+
+#items-ward > img {
+    height: 1.5rem;
+    margin-right: 0.5rem;
+}
+.items {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#items-all {
+    width: 8rem;
+    display: flex;
+}
+#items-main {
+    height: 4rem;
+}
+#items-ward {
+    display: flex;
+    align-items: center;
 }
