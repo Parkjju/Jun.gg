@@ -98,7 +98,7 @@ axios
         const soloTierPoint =
             result[0].queueType == 'RANKED_FLEX_SR'
                 ? result[1].leaguePoints
-                : result[1].leaguePoints;
+                : result[0].leaguePoints;
         const freeTierPoint =
             result[0].queueType == 'RANKED_FLEX_SR'
                 ? result[0].leaguePoints
@@ -167,8 +167,6 @@ axios
         // 솔로랭크 이미지
         leagueSolo.src = `./ranked-emblems/Emblem_${soloTier}.png`;
         leagueFree.src = `./ranked-emblems/Emblem_${freeTier}.png`;
-
-        // localStorage.removeItem(localStorage.key(0));
     });
 
 // 닉네임 api
