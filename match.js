@@ -48,7 +48,6 @@ axios.get(`${matchAPI}`).then((response) => {
                         result['info']['participants'][me].perks.styles[1]
                             .style,
                     ];
-                    console.log(myRunes);
 
                     renderChampionInfo(myChampion);
                     renderSpellInfo(mySpell);
@@ -113,6 +112,20 @@ async function renderChampionInfo(myChampion) {
 
     await axios.get(`${myChampionImgURL}`).then(() => {
         const championProfileBlock = document.querySelector('#champion-img');
+        const championNameBlock = document.querySelector('#champion-summoner');
+
+        axios
+            .get(
+                `https://ddragon.leagueoflegends.com/cdn/12.7.1/data/ko_KR/champion.json`
+            )
+            .then((response) => {
+                for (let i in response.data.data) {
+                    if (i == myChampion) {
+                        championNameBlock.innerText = `${response.data.data[i].name}`;
+                    }
+                }
+            });
+
         championProfileBlock.src = `${myChampionImgURL}`;
     });
 }
@@ -145,11 +158,11 @@ function playedTime(time) {
     const playedTimeBlock = document.querySelector('#info-played');
 
     if (elapsedMin < 60) {
-        playedTimeBlock.innerText = `${parseInt(elapsedMin)}분 전`;
+        playedTimeBlock.innerText = `${Math.round(elapsedMin)}분 전`;
     } else if (hour < 24) {
-        playedTimeBlock.innerText = `${parseInt(hour)}시간 전`;
+        playedTimeBlock.innerText = `${Math.round(hour)}시간 전`;
     } else if (day < 30) {
-        playedTimeBlock.innerText = `${parseInt(day)}일 전`;
+        playedTimeBlock.innerText = `${Math.round(day)}일 전`;
     } else {
         playedTimeBlock.innerText = `한달 이상 전`;
     }
