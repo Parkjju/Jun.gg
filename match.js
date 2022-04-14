@@ -48,10 +48,22 @@ axios.get(`${matchAPI}`).then((response) => {
                         result['info']['participants'][me].perks.styles[1]
                             .style,
                     ];
+                    const myKDA = [
+                        result['info']['participants'][me].kills,
+                        result['info']['participants'][me].deaths,
+                        result['info']['participants'][me].assists,
+                    ];
 
                     renderChampionInfo(myChampion);
                     renderSpellInfo(mySpell);
                     renderRunesInfo(myRunes);
+                    renderKDA(myKDA);
+                    renderStatLevelAndCS(
+                        result['info'],
+                        result['info']['participants'][me]
+                    );
+                    renderStatRatio(result['info'], me);
+                    renderStatKillingSpree(result['info']['participants'][me]);
 
                     totalTime(result['info']['gameDuration']);
                     console.log(response[i].data);
@@ -60,6 +72,38 @@ axios.get(`${matchAPI}`).then((response) => {
         );
     }, 8000);
 });
+
+function renderStatKillingSpree(myInfo) {
+    const myKill = `${myInfo.largestKillingSpree}`;
+    const killBlock = document.querySelector('#stats-kill');
+
+    killBlock.innerText = `연속 ${myKill} 킬!`;
+}
+
+function renderStatRatio(myInfo, me) {
+    const myTeam = myInfo['participants'][me].teamId;
+    for (let i in myInfo.teams) {
+        if (myInfo.teams[i].teamId == myTeam) {
+            const totalKills = myInfo.teams[i].objectives.champion.kills;
+            const killBlock = document.querySelector('#killRatio');
+            killBlock.innerText = `${Math.round(
+                (myInfo['participants'][me].kills / totalKills) * 100
+            )}%`;
+        }
+    }
+}
+
+function renderStatLevelAndCS(gameInfo, myInfo) {
+    const championLevel = myInfo.champLevel;
+    const CS = myInfo.totalMinionsKilled;
+    const levelBlock = document.querySelector('#stats-level');
+    const csBlock = document.querySelector('#stats-cs');
+
+    levelBlock.innerText = `레벨 ${championLevel}`;
+    csBlock.innerText = `${CS} (${Math.round(
+        CS / (gameInfo.gameDuration / 60)
+    )}) CS`;
+}
 
 async function renderRunesInfo(myRunes) {
     const myRunesJSON = `http://ddragon.leagueoflegends.com/cdn/12.7.1/data/ko_KR/runesReforged.json`;
@@ -71,13 +115,14 @@ async function renderRunesInfo(myRunes) {
         for (let i in runeData) {
             if (myRunes[0].primary == runeData[i].id) {
                 const mainRuneKey = runeData[i].key;
-                for (let j in runeData[i].slots) {
+                for (let j in runeData[i].slots[0].runes) {
                     if (
-                        runeData[i].slots[j].runes[0].id == myRunes[0].subMain
+                        runeData[i].slots[0].runes[j].id == myRunes[0].subMain
                     ) {
                         const subMainRuneKey =
-                            runeData[i].slots[j].runes[0].key;
+                            runeData[i].slots[0].runes[j].key;
                         runeBlock.firstElementChild.src = `https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/${mainRuneKey}/${subMainRuneKey}/${subMainRuneKey}.png`;
+                        console.log(runeBlock.firstElementChild.src);
                     }
                 }
             } else if (myRunes[1] == runeData[i].id) {
@@ -86,6 +131,19 @@ async function renderRunesInfo(myRunes) {
             }
         }
     });
+}
+
+async function renderKDA(myKDA) {
+    const kdaBlock = document.querySelector('#kda-stat');
+    const deathBlock = document.querySelector('#kda-death');
+    const meanBlock = document.querySelector('#mean-stat');
+
+    kdaBlock.firstElementChild.innerText = `${myKDA[0]}`;
+    deathBlock.innerText = `${myKDA[1]}`;
+    kdaBlock.lastElementChild.innerText = `${myKDA[2]} `;
+    meanBlock.innerText = `${((myKDA[0] + myKDA[2]) / myKDA[1]).toPrecision(
+        3
+    )}`;
 }
 
 async function renderSpellInfo(mySpell) {
@@ -178,8 +236,9 @@ function participantIndex(data) {
 
 function winOrLose(flag) {
     const block = document.querySelector('#info-win');
-    if (!flag) {
+    if (flag) {
         block.innerText = '승리';
+        block.style.color = '#5484e8';
     } else {
         block.innerText = '패배';
         block.style.color = '#c5443e';

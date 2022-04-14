@@ -194,6 +194,9 @@ body {
     justify-content: center;
     align-items: center;
 }
+.kda {
+    width: 10%;
+}
 
 .participants {
     width: 25%;
@@ -312,7 +315,7 @@ body {
     font-weight: 400;
 }
 
-#stats-tierMean {
+#stats-kill {
     font-weight: 900;
 }
 
