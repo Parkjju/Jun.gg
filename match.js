@@ -64,6 +64,7 @@ axios.get(`${matchAPI}`).then((response) => {
                     );
                     renderStatRatio(result['info'], me);
                     renderStatKillingSpree(result['info']['participants'][me]);
+                    renderItems(result['info']['participants'][me]);
 
                     totalTime(result['info']['gameDuration']);
                     console.log(response[i].data);
@@ -73,6 +74,25 @@ axios.get(`${matchAPI}`).then((response) => {
     }, 8000);
 });
 
+async function renderItems(myInfo) {
+    const itemsId = [];
+    const imgBlock = document.querySelector('#items-main').childNodes;
+    var count = 0;
+
+    itemsId.push(myInfo.item0);
+    itemsId.push(myInfo.item1);
+    itemsId.push(myInfo.item2);
+    itemsId.push(myInfo.item4);
+    itemsId.push(myInfo.item5);
+    itemsId.push(myInfo.item6);
+
+    for (let i = 1; i < 12; i += 2) {
+        imgBlock[
+            i
+        ].src = `http://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${itemsId[count]}.png`;
+        count += 1;
+    }
+}
 function renderStatKillingSpree(myInfo) {
     const myKill = `${myInfo.largestKillingSpree}`;
     const killBlock = document.querySelector('#stats-kill');
@@ -122,7 +142,6 @@ async function renderRunesInfo(myRunes) {
                         const subMainRuneKey =
                             runeData[i].slots[0].runes[j].key;
                         runeBlock.firstElementChild.src = `https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/${mainRuneKey}/${subMainRuneKey}/${subMainRuneKey}.png`;
-                        console.log(runeBlock.firstElementChild.src);
                     }
                 }
             } else if (myRunes[1] == runeData[i].id) {
