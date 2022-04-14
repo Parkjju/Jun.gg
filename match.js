@@ -21,12 +21,39 @@ axios.get(`${matchAPI}`).then((response) => {
             axios.spread((...response) => {
                 for (let i = 0; i < response.length; i++) {
                     const result = response[i].data;
+
                     queueType(result['info']['queueId']);
                     playedTime(result['info']['gameCreation']);
                     const me = participantIndex(
                         result['metadata']['participants']
                     );
+
                     winOrLose(result['info']['participants'][me].win);
+
+                    const myChampion =
+                        result['info']['participants'][me].championName;
+                    const mySpell = [
+                        result['info']['participants'][me].summoner1Id,
+                        result['info']['participants'][me].summoner2Id,
+                    ];
+                    const myRunes = [
+                        {
+                            primary:
+                                result['info']['participants'][me].perks
+                                    .styles[0].style, // 주특성 - 지배/결의 등
+                            subMain:
+                                result['info']['participants'][me].perks
+                                    .styles[0].selections[0].perk, // 주특성 하위 특성 중 가장 상단(정복자 등)
+                        },
+                        result['info']['participants'][me].perks.styles[1]
+                            .style,
+                    ];
+                    console.log(myRunes);
+
+                    renderChampionInfo(myChampion);
+                    renderSpellInfo(mySpell);
+                    renderRunesInfo(myRunes);
+
                     totalTime(result['info']['gameDuration']);
                     console.log(response[i].data);
                 }
@@ -34,6 +61,64 @@ axios.get(`${matchAPI}`).then((response) => {
         );
     }, 8000);
 });
+
+async function renderRunesInfo(myRunes) {
+    const myRunesJSON = `http://ddragon.leagueoflegends.com/cdn/12.7.1/data/ko_KR/runesReforged.json`;
+
+    await axios.get(`${myRunesJSON}`).then((response) => {
+        const runeBlock = document.querySelector('#champion-rune');
+        const runeData = response.data;
+
+        for (let i in runeData) {
+            if (myRunes[0].primary == runeData[i].id) {
+                const mainRuneKey = runeData[i].key;
+                for (let j in runeData[i].slots) {
+                    if (
+                        runeData[i].slots[j].runes[0].id == myRunes[0].subMain
+                    ) {
+                        const subMainRuneKey =
+                            runeData[i].slots[j].runes[0].key;
+                        runeBlock.firstElementChild.src = `https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/${mainRuneKey}/${subMainRuneKey}/${subMainRuneKey}.png`;
+                    }
+                }
+            } else if (myRunes[1] == runeData[i].id) {
+                const subRuneKey = runeData[i].icon;
+                runeBlock.lastElementChild.src = `https://ddragon.leagueoflegends.com/cdn/img/${subRuneKey}`;
+            }
+        }
+    });
+}
+
+async function renderSpellInfo(mySpell) {
+    const mySpellJSON = `http://ddragon.leagueoflegends.com/cdn/12.7.1/data/en_US/summoner.json`;
+
+    await axios.get(`${mySpellJSON}`).then((response) => {
+        const spellBlock = document.querySelector('#champion-spell');
+        const spellData = response.data.data;
+
+        for (let i in spellData) {
+            if (spellData[i].key == mySpell[0]) {
+                const spellOneName = spellData[i].id;
+                spellBlock.firstElementChild.src = `http://ddragon.leagueoflegends.com/cdn/12.7.1/img/spell/${spellOneName}.png`;
+            } else if (spellData[i].key == mySpell[1]) {
+                const spellTwoName = spellData[i].id;
+                spellBlock.lastElementChild.src = `http://ddragon.leagueoflegends.com/cdn/12.7.1/img/spell/${spellTwoName}.png`;
+            }
+        }
+    });
+}
+
+async function renderChampionInfo(myChampion) {
+    const myChampionImgURL = `http://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${myChampion}.png`;
+
+    await axios.get(`${myChampionImgURL}`).then(() => {
+        const championProfileBlock = document.querySelector('#champion-img');
+        championProfileBlock.src = `${myChampionImgURL}`;
+    });
+}
+function makeBlock() {
+    const div = document.createElement('div');
+}
 
 function queueType(mode) {
     // game constant 참조
@@ -47,10 +132,6 @@ function queueType(mode) {
     } else if (mode == 440) {
         modeBlock.innerText = '자유 5:5랭크';
     }
-}
-
-function makeBlock() {
-    const div = document.createElement('div');
 }
 
 function playedTime(time) {

@@ -248,6 +248,9 @@ body {
     color: rgb(85, 85, 85);
     text-align: center;
 }
+#champion-img {
+    border-radius: 1.75rem;
+}
 
 #champion-spell,
 #champion-rune,
@@ -258,11 +261,20 @@ body {
 }
 
 #champion-profile > img {
-    height: 4rem;
+    height: 3.5rem;
+    margin-right: 0.5rem;
 }
 #champion-spell > img,
 #champion-rune > img {
-    height: 2rem;
+    height: 1.5rem;
+    margin: 0.1rem;
+}
+#champion-rune > img {
+    border-radius: 0.75rem;
+    background-color: black;
+}
+#champion-rune > img:last-child {
+    background-color: #99bde0;
 }
 
 #kda-stat {
