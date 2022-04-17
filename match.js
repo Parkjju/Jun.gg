@@ -65,6 +65,7 @@ axios.get(`${matchAPI}`).then((response) => {
                     renderStatRatio(result['info'], me);
                     renderStatKillingSpree(result['info']['participants'][me]);
                     renderItems(result['info']['participants'][me]);
+                    renderParticipants(result['info']['participants']);
 
                     totalTime(result['info']['gameDuration']);
                     console.log(response[i].data);
@@ -74,22 +75,77 @@ axios.get(`${matchAPI}`).then((response) => {
     }, 8000);
 });
 
+function getTextLength(str) {
+    var chk =
+        'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_0123456789~!@#$%^&*()_+| ';
+    var length = 0;
+
+    if (str != null) {
+        for (var i = 0; i < str.length; i++) {
+            if (chk.indexOf(str.charAt(i)) >= 0) {
+                length++;
+            } else {
+                length += 2;
+            }
+        }
+        return length;
+    } else {
+        return 0;
+    }
+}
+
+function renderParticipants(teamInfo) {
+    const players = document.querySelectorAll('.participant-profile');
+    const championURL =
+        'https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/';
+    var counter = 0;
+
+    for (let i of players) {
+        const name = teamInfo[counter].championName;
+        var summoner = teamInfo[counter].summonerName;
+        var resultText = '';
+        i.firstElementChild.src = `${championURL}${name}.png`;
+
+        for (let i = 0; i < summoner.length; i++) {
+            resultText += summoner[i];
+            if (getTextLength(resultText) > 10) {
+                resultText += '...';
+                break;
+            }
+        }
+
+        i.lastElementChild.innerText = `${resultText}`;
+        counter += 1;
+    }
+}
+
 async function renderItems(myInfo) {
     const itemsId = [];
     const imgBlock = document.querySelector('#items-main').childNodes;
+    const wardBlock = document.querySelector('#ward');
+
+    wardBlock.innerText = `${myInfo.challenges.controlWardsPlaced}`;
+
     var count = 0;
 
     itemsId.push(myInfo.item0);
     itemsId.push(myInfo.item1);
     itemsId.push(myInfo.item2);
+    itemsId.push(myInfo.item6);
+    itemsId.push(myInfo.item3);
     itemsId.push(myInfo.item4);
     itemsId.push(myInfo.item5);
-    itemsId.push(myInfo.item6);
 
-    for (let i = 1; i < 12; i += 2) {
-        imgBlock[
-            i
-        ].src = `http://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${itemsId[count]}.png`;
+    for (let i = 1; i < 14; i += 2) {
+        if (itemsId[count] == 0) {
+            imgBlock[
+                i
+            ].src = `http://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/7050.png`;
+        } else {
+            imgBlock[
+                i
+            ].src = `http://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${itemsId[count]}.png`;
+        }
         count += 1;
     }
 }

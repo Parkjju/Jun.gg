@@ -323,14 +323,18 @@ body {
     color: #c5443e;
 }
 
-#items-main > img,
-#items-sub > img {
-    height: 2rem;
+#items-main > img {
+    height: 1.5rem;
+    border-radius: 0.3rem;
+}
+#items-main > div {
+    background-color: rgb(153, 185, 207);
 }
 
 #items-ward > img {
     height: 1.5rem;
-    margin-right: 0.5rem;
+    margin-right: 0.25rem;
+    border-radius: 0.75rem;
 }
 .items {
     width: 25%;
@@ -344,12 +348,15 @@ body {
     display: flex;
 }
 #items-main {
-    height: 4rem;
+    height: 3.5rem;
 }
 #items-ward {
     display: flex;
     align-items: center;
-    font-size: 0.9rem;
+    height: 1rem;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    color: #353a3a;
 }
 
 .participant-profile > img {
