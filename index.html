@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="/secret.json"></script>
-  </head>
-  <body>
-    <div id="main">
-      <div id="main-title">
-        <span>JUN.GG</span>
-      </div>
-      <form id="main-input" action="result.html">
-        <input
-          type="text"
-          id="main-input__username"
-          placeholder="소환사명을 입력하세요.."
-        />
-        <input type="submit" />
-      </form>
-    </div>
-  </body>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="api.js"></script>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="style.css" />
+        <script src="/secret.json"></script>
+    </head>
+    <body>
+        <div id="main">
+            <div id="main-title">
+                <span>JUN.GG</span>
+            </div>
+            <form id="main-input" action="result.html">
+                <input
+                    type="text"
+                    id="main-input__username"
+                    placeholder="소환사명을 입력하세요.."
+                    autocomplete="off"
+                />
+                <input type="submit" />
+            </form>
+        </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="api.js"></script>
 </html>
