@@ -4,6 +4,8 @@
 
 -   OP.GG를 클론 코딩한 프로젝트입니다.
 
+![Jung](./img/jung.gif)
+
 ## Content
 
 -   [Requirements](#Requirements)
@@ -60,5 +62,7 @@ git clone https://github.com/Parkjju/Jun.gg.git
 -   [ ] 매치 세부데이터를 추가할 예정입니다. (매치 대상 아이템 트리 등)
 
 -   [ ] 챔피언 숙련도 관련 데이터 추가 예정입니다.
+
+-   [ ] API 요청 제한 요건을 명확히 준수하도록 액시오스 요청 코드를 수정해볼 예정입니다.
 
 -   [ ] Node.JS 적용을 통해 백엔드 단에서 데이터가 어떻게 주고 받아지는지 학습해볼 예정입니다. 현재는 로컬에서만 돌아가도록 하기 위해 크롬의 `localStorage`를 이용하고 있습니다.
