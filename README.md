@@ -4,7 +4,7 @@
 
 -   OP.GG를 클론 코딩한 프로젝트입니다.
 
-![Jung](./img/jung.gif)
+![Jung](./img/jungg.gif)
 
 ## Content
 
