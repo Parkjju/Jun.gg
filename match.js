@@ -21,14 +21,15 @@ axios.get(`${matchAPI}`).then((response) => {
             axios.spread((...response) => {
                 for (let i = 0; i < response.length; i++) {
                     const result = response[i].data;
-
-                    queueType(result['info']['queueId']);
-                    playedTime(result['info']['gameCreation']);
                     const me = participantIndex(
                         result['metadata']['participants']
                     );
 
-                    winOrLose(result['info']['participants'][me].win);
+                    // makeMatchBlock(result['info']['participants'][me].win);
+                    queueType(result['info']['queueId'], i);
+                    playedTime(result['info']['gameCreation'], i);
+                    winOrLose(result['info']['participants'][me].win, i);
+                    totalTime(result['info']['gameDuration'], i);
 
                     const myChampion =
                         result['info']['participants'][me].championName;
@@ -66,14 +67,22 @@ axios.get(`${matchAPI}`).then((response) => {
                     renderStatKillingSpree(result['info']['participants'][me]);
                     renderItems(result['info']['participants'][me]);
                     renderParticipants(result['info']['participants']);
-
-                    totalTime(result['info']['gameDuration']);
-                    console.log(response[i].data);
                 }
             })
         );
     }, 8000);
 });
+
+// function makeMatchBlock(flag) {
+//     const block = document.createElement("div");
+//     const infoBlock = document.createElement("div");
+//     const
+//     if (flag) {
+//         block.className = "match-information__win";
+//     } else {
+//         block.className = "match-information__lose";
+//     }
+// }
 
 function getTextLength(str) {
     var chk =
@@ -262,25 +271,22 @@ async function renderChampionInfo(myChampion) {
         championProfileBlock.src = `${myChampionImgURL}`;
     });
 }
-function makeBlock() {
-    const div = document.createElement('div');
-}
 
-function queueType(mode) {
+function queueType(mode, index) {
     // game constant 참조
-    const modeBlock = document.querySelector('#info-game');
+    const modeBlock = document.querySelectorAll('.info-game');
     if (mode == 450) {
-        modeBlock.innerText = '무작위 총력전';
+        modeBlock[index].innerText = '무작위 총력전';
     } else if (mode == 420) {
-        modeBlock.innerText = '솔랭';
+        modeBlock[index].innerText = '솔랭';
     } else if (mode == 430) {
-        modeBlock.innerText = '일반';
+        modeBlock[index].innerText = '일반';
     } else if (mode == 440) {
-        modeBlock.innerText = '자유 5:5랭크';
+        modeBlock[index].innerText = '자유 5:5랭크';
     }
 }
 
-function playedTime(time) {
+function playedTime(time, index) {
     const now = new Date();
     const elapsedMin =
         (now.getTime() - time) / 1000 < 60
@@ -288,16 +294,16 @@ function playedTime(time) {
             : (now.getTime() - time) / 1000 / 60;
     const hour = elapsedMin / 60;
     const day = hour / 24;
-    const playedTimeBlock = document.querySelector('#info-played');
+    const playedTimeBlock = document.querySelectorAll('.info-played');
 
     if (elapsedMin < 60) {
-        playedTimeBlock.innerText = `${Math.round(elapsedMin)}분 전`;
+        playedTimeBlock[index].innerText = `${Math.round(elapsedMin)}분 전`;
     } else if (hour < 24) {
-        playedTimeBlock.innerText = `${Math.round(hour)}시간 전`;
+        playedTimeBlock[index].innerText = `${Math.round(hour)}시간 전`;
     } else if (day < 30) {
-        playedTimeBlock.innerText = `${Math.round(day)}일 전`;
+        playedTimeBlock[index].innerText = `${Math.round(day)}일 전`;
     } else {
-        playedTimeBlock.innerText = `한달 이상 전`;
+        playedTimeBlock[index].innerText = `한달 이상 전`;
     }
 }
 
@@ -309,18 +315,18 @@ function participantIndex(data) {
     }
 }
 
-function winOrLose(flag) {
-    const block = document.querySelector('#info-win');
+function winOrLose(flag, index) {
+    const block = document.querySelectorAll('.info-win');
     if (flag) {
-        block.innerText = '승리';
-        block.style.color = '#5484e8';
+        block[index].innerText = '승리';
+        block[index].style.color = '#5484e8';
     } else {
-        block.innerText = '패배';
-        block.style.color = '#c5443e';
+        block[index].innerText = '패배';
+        block[index].style.color = '#c5443e';
     }
 }
 
-function totalTime(time) {
-    const timeBlock = document.querySelector('#info-time');
-    timeBlock.innerText = `${parseInt(time / 60)}분 ${time % 60}초`;
+function totalTime(time, index) {
+    const timeBlock = document.querySelectorAll('.info-time');
+    timeBlock[index].innerText = `${parseInt(time / 60)}분 ${time % 60}초`;
 }

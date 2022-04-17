@@ -213,21 +213,20 @@ body {
     border: 1px solid rgb(153, 185, 207);
 }
 
-#info-game {
+.info-game {
     font-weight: bold;
     color: rgb(85, 85, 85);
     font-size: 0.8rem;
 }
-
-#info-game,
-#info-played,
-#info-win,
-#info-time {
+.info-game,
+.info-played,
+.info-win,
+.info-time {
     color: rgb(85, 85, 85);
     font-size: 0.7rem;
 }
 
-#info-win {
+.info-win {
     color: #5484e8;
     font-weight: bold;
     font-size: 0.8rem;
