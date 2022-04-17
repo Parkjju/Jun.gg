@@ -2,6 +2,10 @@ body {
     background-color: #eaeaea;
     padding: 0;
 }
+
+.hide {
+    display: none;
+}
 #navbar {
     height: 3rem;
     width: 100%;

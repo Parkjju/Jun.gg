@@ -9,6 +9,7 @@
             rel="stylesheet"
         />
         <link rel="stylesheet" href="result.css" />
+        <link rel="stylesheet" href="loading.css" />
         <script src="/secret.json"></script>
         <title>Document</title>
     </head>
@@ -29,6 +30,7 @@
         </div>
 
         <div id="main">
+            <div id="loading"></div>
             <div id="game-information">
                 <div id="league-information">
                     <div id="league-solo">
@@ -63,5 +65,20 @@
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="result.js"></script>
         <script src="match.js"></script>
+        <script>
+            const gameInformationBlock =
+                document.querySelector('#game-information');
+            const matchInformationBlock =
+                document.querySelector('#match-information');
+            const loadingBar = document.querySelector('#loading');
+            gameInformationBlock.className = 'hide';
+            matchInformationBlock.className = 'hide';
+
+            setTimeout(() => {
+                gameInformationBlock.className = '';
+                matchInformationBlock.className = '';
+                loadingBar.className = 'hide';
+            }, 8000);
+        </script>
     </body>
 </html>
