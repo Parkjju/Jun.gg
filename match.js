@@ -48,7 +48,8 @@ axios.get(`${matchAPI}`).then((response) => {
                         result['info']['participants'][me].assists,
                     ];
 
-                    // makeMatchBlock(result['info']['participants'][me].win);
+                    makeMatchBlock(result['info']['participants'][me].win);
+
                     queueType(result['info']['queueId'], i);
                     playedTime(result['info']['gameCreation'], i);
                     winOrLose(result['info']['participants'][me].win, i);
@@ -76,16 +77,209 @@ axios.get(`${matchAPI}`).then((response) => {
     }, 8000);
 });
 
-// function makeMatchBlock(flag) {
-//     const block = document.createElement("div");
-//     const infoBlock = document.createElement("div");
-//     const
-//     if (flag) {
-//         block.className = "match-information__win";
-//     } else {
-//         block.className = "match-information__lose";
-//     }
-// }
+function appendInfoClassBlock(block) {
+    const infoBlock = document.createElement('div');
+    const infoGameSpan = document.createElement('span');
+    const infoPlaySpan = document.createElement('span');
+    const infoWinSpan = document.createElement('span');
+    const infoTimeSpan = document.createElement('span');
+    const infoInnerDivider = document.createElement('div');
+    infoBlock.className = 'info';
+    infoInnerDivider.className = 'divider';
+    infoGameSpan.className = 'info-game';
+    infoPlaySpan.className = 'info-played';
+    infoWinSpan.className = 'info-win';
+    infoTimeSpan.className = 'info-time';
+
+    infoBlock.appendChild(infoGameSpan);
+    infoBlock.appendChild(infoPlaySpan);
+    infoBlock.appendChild(infoInnerDivider);
+    infoBlock.appendChild(infoWinSpan);
+    infoBlock.appendChild(infoTimeSpan);
+
+    block.appendChild(infoBlock);
+}
+function appendChampionClassBlock(block) {
+    const championBlock = document.createElement('div');
+    const championInfoBlock = document.createElement('div');
+    const championProfileBlock = document.createElement('div');
+    const championImg = document.createElement('img');
+    const img = document.createElement('img');
+    const championSpellBlock = document.createElement('div');
+    const championRuneBlock = document.createElement('div');
+    const championNameBlock = document.createElement('div');
+
+    championBlock.className = 'champion';
+    championInfoBlock.className = 'champion-info';
+    championProfileBlock.className = 'champion-profile';
+    championImg.className = 'champion-img';
+    championSpellBlock.className = 'champion-spell';
+    championRuneBlock.className = 'champion-rune';
+    championNameBlock.className = 'champion-summoner';
+
+    championProfileBlock.appendChild(championImg);
+
+    championSpellBlock.appendChild(img.cloneNode(true));
+    championSpellBlock.appendChild(img.cloneNode(true));
+
+    championRuneBlock.appendChild(img.cloneNode(true));
+    championRuneBlock.appendChild(img.cloneNode(true));
+
+    championInfoBlock.append(
+        championProfileBlock,
+        championSpellBlock,
+        championRuneBlock
+    );
+
+    championBlock.append(championInfoBlock, championNameBlock);
+
+    block.appendChild(championBlock);
+}
+
+function appendKdaClassBlock(block) {
+    const kdaBlock = document.createElement('div');
+    const kdaStatBlock = document.createElement('div');
+    const span = document.createElement('span');
+    const slashSpan = document.createElement('span');
+    const deathSpan = document.createElement('span');
+    const kdaMeanBlock = document.createElement('div');
+    const meanSpan = document.createElement('span');
+    const textSpan = document.createElement('span');
+
+    kdaBlock.className = 'kda';
+    kdaStatBlock.className = 'kda-stat';
+    slashSpan.className = 'slash';
+    slashSpan.innerText = '/';
+    deathSpan.className = 'kda-death';
+    kdaMeanBlock.className = 'kda-mean';
+    meanSpan.className = 'mean-stat';
+    textSpan.innerText = '평점';
+    kdaStatBlock.append(
+        span.cloneNode(true),
+        slashSpan.cloneNode(true),
+        deathSpan,
+        slashSpan.cloneNode(true),
+        span.cloneNode(true)
+    );
+    kdaMeanBlock.append(meanSpan, textSpan);
+
+    kdaBlock.append(kdaStatBlock, kdaMeanBlock);
+    block.appendChild(kdaBlock);
+}
+
+function appendStatClassBlock(block) {
+    const statBlock = document.createElement('div');
+    const statLevelBlock = document.createElement('div');
+    const statCsBlock = document.createElement('div');
+    const statKillRatioBlock = document.createElement('div');
+    const killText = document.createTextNode('킬관여');
+    const killRatioSpan = document.createElement('span');
+    const meanTextSpan = document.createElement('span');
+    const statKillBlock = document.createElement('div');
+    const span = document.createElement('span');
+
+    statBlock.className = 'stats';
+    statLevelBlock.className = 'stats-level';
+    statCsBlock.className = 'stats-cs';
+    statKillRatioBlock.className = 'stats-killRatio';
+    killRatioSpan.className = 'killRatio';
+    meanTextSpan.innerText = '매치 평균';
+    statKillBlock.className = 'stats-kill';
+
+    statKillBlock.appendChild(span);
+    statKillRatioBlock.append(killText, killRatioSpan);
+    statBlock.append(
+        statLevelBlock,
+        statCsBlock,
+        statKillRatioBlock,
+        meanTextSpan,
+        statKillBlock
+    );
+
+    block.appendChild(statBlock);
+}
+
+function appendItemClassBlock(block) {
+    const itemBlock = document.createElement('div');
+    const itemAllBlock = document.createElement('div');
+    const itemMainBlock = document.createElement('div');
+    const itemWardBlock = document.createElement('div');
+    const wardImg = document.createElement('img');
+    const wardText = document.createElement('span');
+    const wardSpan = document.createElement('span');
+    const textNode = document.createTextNode(' ');
+    const blankImg = document.createElement('img');
+
+    blankImg.src =
+        'http://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/7050.png';
+    itemBlock.className = 'items';
+    itemAllBlock.className = 'items-all';
+    itemMainBlock.className = 'items-main';
+    itemWardBlock.className = 'items-ward';
+    wardImg.src =
+        'http://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/3330.png';
+    wardText.innerText = '제어 와드\u00A0';
+    wardSpan.className = 'ward';
+
+    for (let i = 0; i < 7; i++) {
+        itemMainBlock.appendChild(blankImg.cloneNode(true));
+        itemMainBlock.appendChild(textNode.cloneNode(true));
+    }
+    itemAllBlock.appendChild(itemMainBlock);
+    itemWardBlock.append(wardImg, wardText, wardSpan);
+
+    itemBlock.append(itemAllBlock, itemWardBlock);
+
+    block.appendChild(itemBlock);
+}
+
+function appendParticipantsClassBlock(block) {
+    const participantsBlock = document.createElement('div');
+    const allyBlock = document.createElement('div');
+    const opponentBlock = document.createElement('div');
+    const participantProfileBlock = document.createElement('div');
+    const img = document.createElement('img');
+    const participantUsernameSpan = document.createElement('span');
+
+    participantsBlock.className = 'participants';
+    participantUsernameSpan.className = 'participant-username';
+    participantProfileBlock.className = 'participant-profile';
+    allyBlock.className = 'ally';
+    opponentBlock.className = 'opponent';
+
+    participantProfileBlock.append(img, participantUsernameSpan);
+
+    for (let i = 0; i < 5; i++) {
+        allyBlock.appendChild(participantProfileBlock.cloneNode(true));
+    }
+    for (let i = 0; i < 5; i++) {
+        opponentBlock.appendChild(participantProfileBlock.cloneNode(true));
+    }
+
+    participantsBlock.append(allyBlock, opponentBlock);
+
+    block.appendChild(participantsBlock);
+}
+
+function makeMatchBlock(flag) {
+    const matchInformationBlock = document.querySelector('#match-information');
+    const block = document.createElement('div');
+
+    appendInfoClassBlock(block);
+    appendChampionClassBlock(block);
+    appendKdaClassBlock(block);
+    appendStatClassBlock(block);
+    appendItemClassBlock(block);
+    appendParticipantsClassBlock(block);
+
+    if (flag) {
+        block.className = 'match-information__win';
+    } else {
+        block.className = 'match-information__lose';
+    }
+
+    matchInformationBlock.appendChild(block);
+}
 
 function getTextLength(str) {
     var chk =
@@ -174,7 +368,7 @@ async function renderItems(myInfo, index) {
     itemsId.push(myInfo.item4);
     itemsId.push(myInfo.item5);
 
-    for (let i = 1; i < 14; i += 2) {
+    for (let i = 0; i < 14; i += 2) {
         if (itemsId[count] == 0) {
             imgBlock[
                 i
@@ -255,9 +449,9 @@ async function renderKDA(myKDA, index) {
     const deathBlock = document.querySelectorAll('.kda-death');
     const meanBlock = document.querySelectorAll('.mean-stat');
 
-    kdaBlock[index].firstElementChild.innerText = `${myKDA[0]}`;
-    deathBlock[index].innerText = `${myKDA[1]}`;
-    kdaBlock[index].lastElementChild.innerText = `${myKDA[2]} `;
+    kdaBlock[index].firstElementChild.innerText = `${myKDA[0]}\u00A0`;
+    deathBlock[index].innerText = `\u00A0${myKDA[1]}\u00A0`;
+    kdaBlock[index].lastElementChild.innerText = `\u00A0${myKDA[2]} `;
     meanBlock[index].innerText = `${(
         (myKDA[0] + myKDA[2]) /
         myKDA[1]
