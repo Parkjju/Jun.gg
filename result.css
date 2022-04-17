@@ -235,14 +235,14 @@ body {
 .champion {
     margin-right: 1rem;
 }
-#champion-info {
+.champion-info {
     box-sizing: border-box;
     width: 100%;
     height: 80%;
     display: flex;
     margin-bottom: 0.5rem;
 }
-#champion-summoner {
+.champion-summoner {
     box-sizing: border-box;
     width: 100%;
     height: 20%;
@@ -250,43 +250,43 @@ body {
     color: rgb(85, 85, 85);
     text-align: center;
 }
-#champion-img {
+.champion-img {
     border-radius: 1.75rem;
 }
 
-#champion-spell,
-#champion-rune,
-#champion-profile {
+.champion-spell,
+.champion-rune,
+.champion-profile {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-#champion-profile > img {
+.champion-profile > img {
     height: 3.5rem;
     margin-right: 0.5rem;
 }
-#champion-spell > img,
-#champion-rune > img {
+.champion-spell > img,
+.champion-rune > img {
     height: 1.5rem;
     margin: 0.1rem;
 }
-#champion-rune > img {
+.champion-rune > img {
     border-radius: 0.75rem;
     background-color: black;
 }
-#champion-rune > img:last-child {
+.champion-rune > img:last-child {
     background-color: #99bde0;
 }
 
-#kda-stat {
+.kda-stat {
     color: rgb(85, 94, 94);
     font-size: 1rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
 }
 
-#kda-death {
+.kda-death {
     color: #c5443e;
 }
 .slash {
@@ -294,13 +294,13 @@ body {
     font-weight: lighter;
 }
 
-#kda-mean {
+.kda-mean {
     font-size: 0.8rem;
     color: rgb(85, 85, 85);
     font-weight: bold;
 }
 
-#mean-stat {
+.mean-stat {
     color: #353a3a;
 }
 
@@ -314,23 +314,23 @@ body {
     font-weight: 400;
 }
 
-#stats-kill {
+.stats-kill {
     font-weight: 900;
 }
 
-#stats-killRatio {
+.stats-killRatio {
     color: #c5443e;
 }
 
-#items-main > img {
+.items-main > img {
     height: 1.5rem;
     border-radius: 0.3rem;
 }
-#items-main > div {
+.items-main > div {
     background-color: rgb(153, 185, 207);
 }
 
-#items-ward > img {
+.items-ward > img {
     height: 1.5rem;
     margin-right: 0.25rem;
     border-radius: 0.75rem;
@@ -342,14 +342,14 @@ body {
     justify-content: center;
     align-items: center;
 }
-#items-all {
+.items-all {
     width: 8rem;
     display: flex;
 }
-#items-main {
+.items-main {
     height: 3.5rem;
 }
-#items-ward {
+.items-ward {
     display: flex;
     align-items: center;
     height: 1rem;
@@ -375,13 +375,13 @@ body {
     justify-content: flex-start;
 }
 
-#ally,
-#opponent {
+.ally,
+.opponent {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 110%;
 }
-#ally {
+.ally {
     margin-right: 0.5rem;
 }

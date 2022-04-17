@@ -24,13 +24,6 @@ axios.get(`${matchAPI}`).then((response) => {
                     const me = participantIndex(
                         result['metadata']['participants']
                     );
-
-                    // makeMatchBlock(result['info']['participants'][me].win);
-                    queueType(result['info']['queueId'], i);
-                    playedTime(result['info']['gameCreation'], i);
-                    winOrLose(result['info']['participants'][me].win, i);
-                    totalTime(result['info']['gameDuration'], i);
-
                     const myChampion =
                         result['info']['participants'][me].championName;
                     const mySpell = [
@@ -55,18 +48,28 @@ axios.get(`${matchAPI}`).then((response) => {
                         result['info']['participants'][me].assists,
                     ];
 
-                    renderChampionInfo(myChampion);
-                    renderSpellInfo(mySpell);
-                    renderRunesInfo(myRunes);
-                    renderKDA(myKDA);
+                    // makeMatchBlock(result['info']['participants'][me].win);
+                    queueType(result['info']['queueId'], i);
+                    playedTime(result['info']['gameCreation'], i);
+                    winOrLose(result['info']['participants'][me].win, i);
+                    totalTime(result['info']['gameDuration'], i);
+
+                    renderChampionInfo(myChampion, i);
+                    renderSpellInfo(mySpell, i);
+                    renderRunesInfo(myRunes, i);
+                    renderKDA(myKDA, i);
                     renderStatLevelAndCS(
                         result['info'],
-                        result['info']['participants'][me]
+                        result['info']['participants'][me],
+                        i
                     );
-                    renderStatRatio(result['info'], me);
-                    renderStatKillingSpree(result['info']['participants'][me]);
-                    renderItems(result['info']['participants'][me]);
-                    renderParticipants(result['info']['participants']);
+                    renderStatRatio(result['info'], me, i);
+                    renderStatKillingSpree(
+                        result['info']['participants'][me],
+                        i
+                    );
+                    renderItems(result['info']['participants'][me], i);
+                    renderParticipants(result['info']['participants'], i);
                 }
             })
         );
@@ -103,13 +106,37 @@ function getTextLength(str) {
     }
 }
 
-function renderParticipants(teamInfo) {
-    const players = document.querySelectorAll('.participant-profile');
+function renderParticipants(teamInfo, index) {
+    const allyPlayers = document.querySelectorAll('.ally');
+    const opponentPlayers = document.querySelectorAll('.opponent');
     const championURL =
         'https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/';
     var counter = 0;
 
-    for (let i of players) {
+    for (let i of allyPlayers[index].childNodes) {
+        if (!i.hasChildNodes()) {
+            continue;
+        }
+        const name = teamInfo[counter].championName;
+        var summoner = teamInfo[counter].summonerName;
+        var resultText = '';
+        i.firstElementChild.src = `${championURL}${name}.png`;
+
+        for (let i = 0; i < summoner.length; i++) {
+            resultText += summoner[i];
+            if (getTextLength(resultText) > 10) {
+                resultText += '...';
+                break;
+            }
+        }
+
+        i.lastElementChild.innerText = `${resultText}`;
+        counter += 1;
+    }
+    for (let i of opponentPlayers[index].childNodes) {
+        if (!i.hasChildNodes()) {
+            continue;
+        }
         const name = teamInfo[counter].championName;
         var summoner = teamInfo[counter].summonerName;
         var resultText = '';
@@ -128,10 +155,12 @@ function renderParticipants(teamInfo) {
     }
 }
 
-async function renderItems(myInfo) {
+async function renderItems(myInfo, index) {
     const itemsId = [];
-    const imgBlock = document.querySelector('#items-main').childNodes;
-    const wardBlock = document.querySelector('#ward');
+    const childs = document.querySelectorAll('.items-main');
+    const imgBlock = childs[index].childNodes;
+    const wardBlocks = document.querySelectorAll('.ward');
+    const wardBlock = wardBlocks[index];
 
     wardBlock.innerText = `${myInfo.challenges.controlWardsPlaced}`;
 
@@ -158,43 +187,43 @@ async function renderItems(myInfo) {
         count += 1;
     }
 }
-function renderStatKillingSpree(myInfo) {
+function renderStatKillingSpree(myInfo, index) {
     const myKill = `${myInfo.largestKillingSpree}`;
-    const killBlock = document.querySelector('#stats-kill');
+    const killBlock = document.querySelectorAll('.stats-kill');
 
-    killBlock.innerText = `연속 ${myKill} 킬!`;
+    killBlock[index].innerText = `연속 ${myKill} 킬!`;
 }
 
-function renderStatRatio(myInfo, me) {
+function renderStatRatio(myInfo, me, index) {
     const myTeam = myInfo['participants'][me].teamId;
     for (let i in myInfo.teams) {
         if (myInfo.teams[i].teamId == myTeam) {
             const totalKills = myInfo.teams[i].objectives.champion.kills;
-            const killBlock = document.querySelector('#killRatio');
-            killBlock.innerText = `${Math.round(
+            const killBlock = document.querySelectorAll('.killRatio');
+            killBlock[index].innerText = `${Math.round(
                 (myInfo['participants'][me].kills / totalKills) * 100
             )}%`;
         }
     }
 }
 
-function renderStatLevelAndCS(gameInfo, myInfo) {
+function renderStatLevelAndCS(gameInfo, myInfo, index) {
     const championLevel = myInfo.champLevel;
     const CS = myInfo.totalMinionsKilled;
-    const levelBlock = document.querySelector('#stats-level');
-    const csBlock = document.querySelector('#stats-cs');
+    const levelBlock = document.querySelectorAll('.stats-level');
+    const csBlock = document.querySelectorAll('.stats-cs');
 
-    levelBlock.innerText = `레벨 ${championLevel}`;
-    csBlock.innerText = `${CS} (${Math.round(
+    levelBlock[index].innerText = `레벨 ${championLevel}`;
+    csBlock[index].innerText = `${CS} (${Math.round(
         CS / (gameInfo.gameDuration / 60)
     )}) CS`;
 }
 
-async function renderRunesInfo(myRunes) {
+async function renderRunesInfo(myRunes, index) {
     const myRunesJSON = `http://ddragon.leagueoflegends.com/cdn/12.7.1/data/ko_KR/runesReforged.json`;
 
     await axios.get(`${myRunesJSON}`).then((response) => {
-        const runeBlock = document.querySelector('#champion-rune');
+        const runeBlock = document.querySelectorAll('.champion-rune');
         const runeData = response.data;
 
         for (let i in runeData) {
@@ -206,55 +235,65 @@ async function renderRunesInfo(myRunes) {
                     ) {
                         const subMainRuneKey =
                             runeData[i].slots[0].runes[j].key;
-                        runeBlock.firstElementChild.src = `https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/${mainRuneKey}/${subMainRuneKey}/${subMainRuneKey}.png`;
+                        runeBlock[
+                            index
+                        ].firstElementChild.src = `https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/${mainRuneKey}/${subMainRuneKey}/${subMainRuneKey}.png`;
                     }
                 }
             } else if (myRunes[1] == runeData[i].id) {
                 const subRuneKey = runeData[i].icon;
-                runeBlock.lastElementChild.src = `https://ddragon.leagueoflegends.com/cdn/img/${subRuneKey}`;
+                runeBlock[
+                    index
+                ].lastElementChild.src = `https://ddragon.leagueoflegends.com/cdn/img/${subRuneKey}`;
             }
         }
     });
 }
 
-async function renderKDA(myKDA) {
-    const kdaBlock = document.querySelector('#kda-stat');
-    const deathBlock = document.querySelector('#kda-death');
-    const meanBlock = document.querySelector('#mean-stat');
+async function renderKDA(myKDA, index) {
+    const kdaBlock = document.querySelectorAll('.kda-stat');
+    const deathBlock = document.querySelectorAll('.kda-death');
+    const meanBlock = document.querySelectorAll('.mean-stat');
 
-    kdaBlock.firstElementChild.innerText = `${myKDA[0]}`;
-    deathBlock.innerText = `${myKDA[1]}`;
-    kdaBlock.lastElementChild.innerText = `${myKDA[2]} `;
-    meanBlock.innerText = `${((myKDA[0] + myKDA[2]) / myKDA[1]).toPrecision(
-        3
-    )}`;
+    kdaBlock[index].firstElementChild.innerText = `${myKDA[0]}`;
+    deathBlock[index].innerText = `${myKDA[1]}`;
+    kdaBlock[index].lastElementChild.innerText = `${myKDA[2]} `;
+    meanBlock[index].innerText = `${(
+        (myKDA[0] + myKDA[2]) /
+        myKDA[1]
+    ).toPrecision(3)}`;
 }
 
-async function renderSpellInfo(mySpell) {
+async function renderSpellInfo(mySpell, index) {
     const mySpellJSON = `http://ddragon.leagueoflegends.com/cdn/12.7.1/data/en_US/summoner.json`;
 
     await axios.get(`${mySpellJSON}`).then((response) => {
-        const spellBlock = document.querySelector('#champion-spell');
+        const spellBlock = document.querySelectorAll('.champion-spell');
         const spellData = response.data.data;
 
         for (let i in spellData) {
             if (spellData[i].key == mySpell[0]) {
                 const spellOneName = spellData[i].id;
-                spellBlock.firstElementChild.src = `http://ddragon.leagueoflegends.com/cdn/12.7.1/img/spell/${spellOneName}.png`;
+                spellBlock[
+                    index
+                ].firstElementChild.src = `http://ddragon.leagueoflegends.com/cdn/12.7.1/img/spell/${spellOneName}.png`;
             } else if (spellData[i].key == mySpell[1]) {
                 const spellTwoName = spellData[i].id;
-                spellBlock.lastElementChild.src = `http://ddragon.leagueoflegends.com/cdn/12.7.1/img/spell/${spellTwoName}.png`;
+                spellBlock[
+                    index
+                ].lastElementChild.src = `http://ddragon.leagueoflegends.com/cdn/12.7.1/img/spell/${spellTwoName}.png`;
             }
         }
     });
 }
 
-async function renderChampionInfo(myChampion) {
+async function renderChampionInfo(myChampion, index) {
     const myChampionImgURL = `http://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${myChampion}.png`;
 
     await axios.get(`${myChampionImgURL}`).then(() => {
-        const championProfileBlock = document.querySelector('#champion-img');
-        const championNameBlock = document.querySelector('#champion-summoner');
+        const championProfileBlock = document.querySelectorAll('.champion-img');
+        const championNameBlock =
+            document.querySelectorAll('.champion-summoner');
 
         axios
             .get(
@@ -263,12 +302,14 @@ async function renderChampionInfo(myChampion) {
             .then((response) => {
                 for (let i in response.data.data) {
                     if (i == myChampion) {
-                        championNameBlock.innerText = `${response.data.data[i].name}`;
+                        championNameBlock[
+                            index
+                        ].innerText = `${response.data.data[i].name}`;
                     }
                 }
             });
 
-        championProfileBlock.src = `${myChampionImgURL}`;
+        championProfileBlock[index].src = `${myChampionImgURL}`;
     });
 }
 
