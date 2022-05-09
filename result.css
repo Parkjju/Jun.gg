@@ -389,3 +389,13 @@ body {
 .ally {
     margin-right: 0.5rem;
 }
+
+#profile {
+  width: 8rem;
+  height: 8rem;
+}
+
+#profile-img {
+  width: 7rem;
+  height: 7rem;
+}

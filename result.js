@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const userInformation = JSON.parse(localStorage.getItem(localStorage.key(0)));
 const apiKey = data.key;
 const iconURL =
